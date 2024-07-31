@@ -6,6 +6,7 @@ class Ball {
         this.vy = vy;
         this.r = r;
         this.c = c;
+        this.boing = new Audio('boing-spring-mouth-harp-04-20-13-4-103346.mp3');
     }
 
     draw(ctx){
@@ -29,9 +30,12 @@ class Ball {
      * @returns the side that scored a point, or SIDE.NONE
      */
     bounce(things) {
-        this.bounceWalls();
+        // this.bounceWalls();
         for(let thing of things){
             if(thing instanceof Paddle){
+                if(this.side != SIDE.NONE){
+                    this.boing.play();
+                }
                 if(thing.side == SIDE.LEFT){
                     let side = this.bounceLeftPaddle(thing);
                     if(side != SIDE.NONE) return side;
@@ -40,19 +44,27 @@ class Ball {
                     let side = this.bounceRightPaddle(thing);
                     if(side != SIDE.NONE) return side;
                 }
+                else if(thing.side == SIDE.TOP){
+                    let side = this.bounceTopPaddle(thing);
+                    if(side != SIDE.NONE) return side;
+                }
+                else if(thing.side == SIDE.BOTTOM){
+                    let side = this.bounceBottomPaddle(thing);
+                    if(side != SIDE.NONE) return side;
+                }
             }
         }
         return SIDE.NONE;
     }
 
-    bounceWalls() {
-        if (this.y - this.r < 0) {
-            this.vy = Math.abs(this.vy);
-        }
-        if (this.y + this.r > boardHeight) {
-            this.vy = -Math.abs(this.vy);
-        }
-    }
+    // bounceWalls() {
+    //     if (this.y - this.r < 0) {
+    //         this.vy = Math.abs(this.vy);
+    //     }
+    //     if (this.y + this.r > boardHeight) {
+    //         this.vy = -Math.abs(this.vy);
+    //     }
+    // }
 
     bounceLeftPaddle(paddle) {
         if (this.x - this.r > paddle.w) return SIDE.NONE;
@@ -77,6 +89,52 @@ class Ball {
             this.vx = -paddleForce * Math.abs(this.vx);
             let paddlePos = (this.y - paddle.y - paddle.h/2) / paddle.h * 2; // between -1.0 and 1.0
             this.vy = this.vy + paddlePos*paddleSpin;
+        }
+
+        return SIDE.NONE;
+    }
+
+    bounceBottomPaddle(paddle) {
+        if (this.y + this.r < paddle.y) return SIDE.NONE;
+        if (this.y + this.r > boardHeight) return SIDE.TOP; // Someone got a point...
+        if (this.x < paddle.x) return SIDE.NONE;
+        if (this.x > paddle.x + paddle.w) return SIDE.NONE;
+        if (this.vy > 0) {
+            this.vy = -paddleForce * Math.abs(this.vy);
+            let paddlePos = (this.x - paddle.x - paddle.w/2) / paddle.w * 2; // between -1.0 and 1.0
+            this.vx = this.vx + paddlePos*paddleSpin;
+        }
+
+        return SIDE.NONE;
+    }
+
+    //     bounceBottomPaddle(paddle) {
+    // // Check if the ball is below the paddle's top edge
+    // if (this.y + this.r < paddle.y) return SIDE.NONE;
+    // if (this.y - this.r > paddle.y + paddle.h) return SIDE.TOP; // Someone scored a point
+    
+    // if (this.x < paddle.x) return SIDE.NONE;
+    // if (this.x > paddle.x + paddle.w) return SIDE.NONE;
+    
+    // if (this.vy > 0) {
+    //     this.vy = -paddleForce * Math.abs(this.vy);
+    //     let paddlePos = (this.x - paddle.x - paddle.w / 2) / paddle.w * 2; // between -1.0 and 1.0
+    //     this.vx = this.vx + paddlePos * paddleSpin;
+    // }
+
+    // return SIDE.NONE;
+    //     }
+
+
+    bounceTopPaddle(paddle) {
+        if (this.y - this.r > paddle.h) return SIDE.NONE;
+        if (this.y - this.r < 0) return SIDE.BOTTOM; // Someone got a point...
+        if (this.x < paddle.x) return SIDE.NONE;
+        if (this.x > paddle.x + paddle.w) return SIDE.NONE;
+        if (this.vy < 0) {
+            this.vy = paddleForce * Math.abs(this.vy);
+            let paddlePos = (this.x - paddle.x - paddle.w/2) / paddle.w * 2; // between -1.0 and 1.0
+            this.vx = this.vx + paddlePos*paddleSpin;
         }
 
         return SIDE.NONE;

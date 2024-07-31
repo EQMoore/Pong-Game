@@ -7,40 +7,45 @@ class Paddle {
         this.side = side;
         this.c = c;
         this.vy = 0;
+        this.vx = 0;
     }
 
-draw(ctx) {
-    ctx.fillStyle = this.c;
-    ctx.strokeStle = "black";
-    ctx.lineWidth = 2;
+    draw(ctx) {
+        ctx.fillStyle = this.c;
+        ctx.strokeStyle = "black"; // Fixed typo from 'strokeStle' to 'strokeStyle'
+        ctx.lineWidth = 2;
 
-    ctx.fillRect(this.x, this.y, this.w, this.h);
-    ctx.strokeRect(this.x, this.y, this.w, this.h);
-}
+        ctx.fillRect(this.x, this.y, this.w, this.h);
+        ctx.strokeRect(this.x, this.y, this.w, this.h);
+    }
 
-    move(isCPU, ball) {
+    move(isCPU, ball, side) {
+        const paddleVelocity = 6; // Increased velocity for faster movement
+        const aiVelocityFactor = 0.7; // Increased factor to make AI faster
+
         if (isCPU) {
-            
-            if(!Math.abs(Math.abs(this.y)- Math.abs(ball.y)) < 50) {    
-           if(this.y < ball.y){
-                this.vy = paddleVelocity;
-           } else if(this.y > ball.y){
-                this.vy = -paddleVelocity;
+            let targetVelocityX = 0;
+            let targetVelocityY = 0;
+
+            if (side === SIDE.BOTTOM || side === SIDE.TOP) {
+                    targetVelocityX = this.x < ball.x ? paddleVelocity * aiVelocityFactor : -paddleVelocity * aiVelocityFactor;
+                // Smoothly update the horizontal velocity
+                this.vx = this.vx * 0.9 + targetVelocityX * 0.1;
+            } else {
+                    targetVelocityY = this.y < ball.y ? paddleVelocity * aiVelocityFactor : -paddleVelocity * aiVelocityFactor;
+                // Smoothly update the vertical velocity
+                this.vy = this.vy * 0.9 + targetVelocityY * 0.1;
             }
         }
-        
-        
-            
-            // ball.y <- where the ball is
-            // this.y <- where the paddle is
-            // this.l <- how long the paddle is
 
-            // control this.vy using ball
-            // don't set this.y! (cheating)
-             // <-- change this
-        }
+        // Update position based on velocities
         this.y += this.vy;
-        if (this.y <0) this.y = 0;
+        this.x += this.vx;
+
+        // Boundary checks
+        if (this.y < 0) this.y = 0;
         if (this.y + this.h > boardHeight) this.y = boardHeight - this.h;
+        if (this.x < 0) this.x = 0;
+        if (this.x + this.w > boardWidth) this.x = boardWidth - this.w;
     }
 }

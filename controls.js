@@ -2,34 +2,65 @@ window.addEventListener("keydown", keyDown);
 function keyDown(event) {
     const key = event.code;
     console.log(`KEYDOWN: ${key}`);
-    switch (key) {
+    if(!cpuchecked){
+        switch(key){
         case "KeyW":
             paddleL.vy = -paddleVelocity
             break;
         case "KeyS":
-                paddleL.vy = paddleVelocity
-                break;
-        case "KeyD": {
-            if(hasAbilityL){
-                ball.vy += -5;
-                hasAbilityL = false;
-            }
-            }
-                break;
+            paddleL.vy = paddleVelocity
+            break;
+        }
+    }
+    switch (key) {
         case "ArrowUp":
-                paddleR.vy = -paddleVelocity
+            paddleR.vy = -paddleVelocity
             break;
         case "ArrowDown":
-                paddleR.vy = paddleVelocity
-            case "ArrowLeft": 
-                if(hasAbilityR){
-                    ball.vy += -5;
-                    hasAbilityR = false;
-                }
+            paddleR.vy = paddleVelocity
+            break;
+    }
+        if(!twoPlayerMode){
+            switch (key) {
+        case "Numpad4":
+            paddleT.vx = -paddleVelocity;
+            break;
+        case "Numpad6":
+            paddleT.vx = paddleVelocity;
+            break;
+        case "KeyH":
+            paddleB.vx = -paddleVelocity;
+            break;
+        case "KeyK":
+            paddleB.vx = paddleVelocity;
             break;
         case "End":
             resetGame();
             break
+        }
+    }
+    else {
+        if(!cpuchecked){
+            switch(key){
+        case "KeyA":
+            paddleB.vx = -paddleVelocity;
+            break;
+        case "KeyD":
+            paddleB.vx = -paddleVelocity;
+            break;
+            }
+        }
+        switch (key) {
+            case "ArrowLeft":
+                paddleT.vx = -paddleVelocity;
+                break;
+            case "ArrowRight":
+                paddleT.vx = paddleVelocity;
+                break;
+            case "End":
+                resetGame();
+                break
+            }
     }
 }
 
@@ -49,4 +80,35 @@ function keyUp(event) {
             canMoveR = false;
             break;
     }
+            if(!twoPlayerMode){
+                switch (key) {
+            case "Numpad4":
+            case "Numpad6":
+                paddleT.vx = 0
+                break;
+            case "KeyH":
+            case "KeyK":
+                paddleB.vx = 0;
+                break;
+            case "End":
+                resetGame();
+                break
+            }
+        }
+        else {
+            switch (key) {
+                case "ArrowLeft":
+                case "ArrowRight":
+                    paddleT.vx = 0;
+                    break;
+                case "KeyA":
+                case "KeyD":
+                    paddleB.vx = 0;
+                    break;
+                case "End":
+                    resetGame();
+                    break
+                }
+        }
+
 }

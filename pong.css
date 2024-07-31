@@ -1,24 +1,30 @@
 body {
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
-    background-size: cover;
+    /* background-size: cover;
     background-repeat: no-repeat;
     background-image: url("pngtree-science-and-technology-space-station-light-effect-background-image_2049440.jpg");
-    overflow: hidden;
+    overflow: hidden; */
 }
 
 h1 {
     font-size: 60px;
     margin: 0;
+    color:aliceblue;
 }
 
 h3 {
     margin: 0;
+    color: aliceblue;
+}
+p{
+  color:aliceblue;
 }
 
 #scoreboard {
     font-size: 40px;
     font-family: 'Courier New', Courier, monospace;
+    color:aliceblue;
 }
 
 #reset {
