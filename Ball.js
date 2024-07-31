@@ -64,6 +64,7 @@ class Ball {
             let paddlePos = (this.y - paddle.y - paddle.h/2) / paddle.h * 2; // between -1.0 and 1.0
             this.vy = this.vy + paddlePos*paddleSpin;
         }
+
         return SIDE.NONE;
     }
 
@@ -77,6 +78,7 @@ class Ball {
             let paddlePos = (this.y - paddle.y - paddle.h/2) / paddle.h * 2; // between -1.0 and 1.0
             this.vy = this.vy + paddlePos*paddleSpin;
         }
+
         return SIDE.NONE;
     }
 }

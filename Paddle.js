@@ -9,7 +9,6 @@ class Paddle {
         this.vy = 0;
     }
 
-
 draw(ctx) {
     ctx.fillStyle = this.c;
     ctx.strokeStle = "black";
@@ -21,12 +20,16 @@ draw(ctx) {
 
     move(isCPU, ball) {
         if (isCPU) {
-            if(this.y > ball.y){
+            
+            if(!Math.abs(Math.abs(this.y)- Math.abs(ball.y)) < 50) {    
+           if(this.y < ball.y){
                 this.vy = paddleVelocity;
-            }
-            else if(this.y < ball.y){
+           } else if(this.y > ball.y){
                 this.vy = -paddleVelocity;
             }
+        }
+        
+        
             
             // ball.y <- where the ball is
             // this.y <- where the paddle is
