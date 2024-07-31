@@ -58,6 +58,7 @@ function startup() {
     paddleL = new Paddle(0, 0, paddleWidth, paddleLength, SIDE.LEFT, "red");
     paddleB = new Paddle(boardWidth/2, 0, paddleLength, paddleWidth, SIDE.TOP, "green");
     paddleR = new Paddle(boardWidth-paddleWidth, 0 , paddleWidth, paddleLength, SIDE.RIGHT, "blue");
+    PaddleT = new Paddle(boardWidth/2, boardHeight-)
     // boardHeight-paddleLength
     draw();
     return STATE.PLAYING;
