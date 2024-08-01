@@ -46,7 +46,7 @@ function keyDown(event) {
             paddleB.vx = -paddleVelocity;
             break;
         case "KeyD":
-            paddleB.vx = -paddleVelocity;
+            paddleB.vx = paddleVelocity;
             break;
             }
         }

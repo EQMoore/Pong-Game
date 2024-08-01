@@ -12,7 +12,7 @@ class Paddle {
 
     draw(ctx) {
         ctx.fillStyle = this.c;
-        ctx.strokeStyle = "black"; // Fixed typo from 'strokeStle' to 'strokeStyle'
+        ctx.strokeStyle = "black"; 
         ctx.lineWidth = 2;
 
         ctx.fillRect(this.x, this.y, this.w, this.h);
@@ -20,8 +20,8 @@ class Paddle {
     }
 
     move(isCPU, ball, side) {
-        const paddleVelocity = 6; // Increased velocity for faster movement
-        const aiVelocityFactor = 0.7; // Increased factor to make AI faster
+        const paddleVelocity = 6; 
+        const aiVelocityFactor = 0.9; 
 
         if (isCPU) {
             let targetVelocityX = 0;
@@ -29,20 +29,18 @@ class Paddle {
 
             if (side === SIDE.BOTTOM || side === SIDE.TOP) {
                     targetVelocityX = this.x < ball.x ? paddleVelocity * aiVelocityFactor : -paddleVelocity * aiVelocityFactor;
-                // Smoothly update the horizontal velocity
                 this.vx = this.vx * 0.9 + targetVelocityX * 0.1;
             } else {
                     targetVelocityY = this.y < ball.y ? paddleVelocity * aiVelocityFactor : -paddleVelocity * aiVelocityFactor;
-                // Smoothly update the vertical velocity
                 this.vy = this.vy * 0.9 + targetVelocityY * 0.1;
             }
         }
 
-        // Update position based on velocities
+
         this.y += this.vy;
         this.x += this.vx;
 
-        // Boundary checks
+
         if (this.y < 0) this.y = 0;
         if (this.y + this.h > boardHeight) this.y = boardHeight - this.h;
         if (this.x < 0) this.x = 0;
