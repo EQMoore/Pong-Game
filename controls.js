@@ -26,13 +26,13 @@ function keyDown(event) {
             paddleT.vx = -paddleVelocity;
             break;
         case "KeyI":
-            PaddleT.vx = -paddleVelocity;
+            paddleT.vx = -paddleVelocity;
             break;
         case "Numpad6":
             paddleT.vx = paddleVelocity;
             break;
                 case "KeyP":
-                    PaddleT.vx= paddleVelocity;
+                    paddleT.vx= paddleVelocity;
                     break;
         case "KeyH":
             paddleB.vx = -paddleVelocity;
