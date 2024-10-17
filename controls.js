@@ -25,9 +25,15 @@ function keyDown(event) {
         case "Numpad4":
             paddleT.vx = -paddleVelocity;
             break;
+        case "KeyI":
+            PaddleT.vx = -paddleVelocity;
+            break;
         case "Numpad6":
             paddleT.vx = paddleVelocity;
             break;
+                case "KeyP":
+                    PaddleT.vx= paddleVelocity;
+                    break;
         case "KeyH":
             paddleB.vx = -paddleVelocity;
             break;
