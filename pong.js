@@ -26,7 +26,6 @@ let state = STATE.STARTUP;
 let gameoveraudio = new Audio('downer_noise.mp3');
 let twoPlayerMode = document.getElementById("tpmcheck").checked;
 let cpuchecked = document.getElementById("cpucheck").checked;
-let scoreaudio = new Audio('cheering-and-clapping-crowd-1-5995 (mp3cut.net).mp3');
 function updateTPM(){
     twoPlayerMode = document.getElementById("tpmcheck").checked;
 }
@@ -92,7 +91,6 @@ function playing() {
     let sideScore = ball.bounce([paddleL, paddleR, paddleB, paddleT]);
     
     if (sideScore != SIDE.NONE) {
-        scoreaudio.play();
         if (sideScore == SIDE.LEFT) {
             scoreL++;
             ball = new Ball(boardWidth / 2, boardHeight / 2, -1, -1, ballRadius, "hotpink");
