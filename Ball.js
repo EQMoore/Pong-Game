@@ -6,7 +6,6 @@ class Ball {
         this.vy = vy;
         this.r = r;
         this.c = c;
-        this.boing = new Audio('boing-spring-mouth-harp-04-20-13-4-103346.mp3');
     }
 
     draw(ctx){
@@ -33,9 +32,6 @@ class Ball {
         // this.bounceWalls();
         for(let thing of things){
             if(thing instanceof Paddle){
-                if(this.side != SIDE.NONE){
-                    this.boing.play();
-                }
                 if(thing.side == SIDE.LEFT){
                     let side = this.bounceLeftPaddle(thing);
                     if(side != SIDE.NONE) return side;
